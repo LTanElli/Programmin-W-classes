@@ -8,10 +8,19 @@ class Program
         var job1 = new Job("Software Engineer", "EA Sports", "2014", "2020");
         var job2 = new Job("Quality Assurance Officer", "A24 Studios", "2010", "2023");
 
+        var myResume = new Resume("Lynn Tanner Elliott");
+
         job1.DisplayCompany();
         job2.DisplayJob();
         job1.DisplayFull();
 
+        DisplaySpace();
+
+
+        myResume._jobs.Add(job1);
+        myResume._jobs.Add(job2);
+
+        myResume.Display();
     }
 }
 
@@ -19,10 +28,10 @@ class Program
 public class Job
 {
     //attributes or properties
-    string _jobTitle;
-    string _company;
-    string _startYear;
-    string _endYear;
+    public string _jobTitle;
+    public string _company;
+    public string _startYear;
+    public string _endYear;
 
     //constructor
     public Job(string jt, string cm, string sy, string ey) {
@@ -59,11 +68,30 @@ public class Job
     }
 
     public string DisplayFull() {
-        return $"Company: {_company} \nJob Title: {_jobTitle} \nEmployment: {startYear} - {endYear}"
+        return $"Company: {_company} \nJob Title: {_jobTitle} \nEmployment: {startYear} - {endYear}";
     }
 }
 
+//classification
 public class Resume
 {
+    //attributes
+    public string _employeeName;
+    public List<Job> _jobs = new List<Job>();
+    
+    //constructor
+    public Resume(string nm, List<Job> jb) {
+        _employeeName = nm;
+        _jobs = jb;
+    }
 
+    //methods
+    public void Display() {
+        Console.WriteLine($"Name: {_employeeName}")
+        Console.WriteLine($"Jobs: ")
+
+        foreach (Job job in _jobs)
+
+        job.Display();
+    }
 }
