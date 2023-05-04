@@ -8,19 +8,19 @@ class Program
         var job1 = new Job("Software Engineer", "EA Sports", "2014", "2020");
         var job2 = new Job("Quality Assurance Officer", "A24 Studios", "2010", "2023");
 
-        var myResume = new Resume("Lynn Tanner Elliott");
+        //var myResume = new Resume("Lynn Tanner Elliott");
 
         job1.DisplayCompany();
         job2.DisplayJob();
         job1.DisplayFull();
 
-        DisplaySpace();
+       // DisplaySpace();
 
 
-        myResume._jobs.Add(job1);
-        myResume._jobs.Add(job2);
+        // myResume._jobs.Add(job1);
+        // myResume._jobs.Add(job2);
 
-        myResume.Display();
+        // myResume.Display();
     }
 }
 
@@ -63,35 +63,35 @@ public class Job
         Console.WriteLine($"End Year: {_endYear}");
     }
 
-    public void DisplaySpace() {
-        Console.WriteLine();
-    }
+    // public void DisplaySpace() {
+    //     Console.WriteLine();
+    // }
 
     public string DisplayFull() {
-        return $"Company: {_company} \nJob Title: {_jobTitle} \nEmployment: {startYear} - {endYear}";
+        return $"Company: {_company} \nJob Title: {_jobTitle} \nEmployment: {_startYear} - {_endYear}";
     }
 }
 
 //classification
-public class Resume
-{
-    //attributes
-    public string _employeeName;
-    public List<Job> _jobs = new List<Job>();
+// public class Resume
+// {
+//     //attributes
+//     public string _employeeName;
+//     public List<Job> _jobs = new List<Job>();
     
     //constructor
-    public Resume(string nm, List<Job> jb) {
-        _employeeName = nm;
-        _jobs = jb;
-    }
+    // public Resume(string nm, List<Job> jb) {
+    //     _employeeName = nm;
+    //     _jobs = jb;
+    // }
 
     //methods
-    public void Display() {
-        Console.WriteLine($"Name: {_employeeName}")
-        Console.WriteLine($"Jobs: ")
+    // public void Display() {
+    //     Console.WriteLine($"Name: {_employeeName}");
+    //     Console.WriteLine($"Jobs: ");
 
-        foreach (Job job in _jobs)
+    //     foreach (Job job in _jobs);
 
-        job.Display();
-    }
-}
+    //     job.Display();
+    // }
+//}
