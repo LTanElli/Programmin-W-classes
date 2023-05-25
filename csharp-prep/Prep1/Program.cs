@@ -27,3 +27,18 @@ class Program
 //         Console.Write($"Your name is {lastName}, {firstName} {lastName}.");
 //     }
 // }
+
+
+// foreach (Word word in _words)
+//         {
+//             if (word.GetHidden())
+//             {
+//                 Console.Write(new string('_', word.GetText().Length) + " ");
+//             }
+//             else
+//             {
+//                 Console.Write(word.GetText() + " ");
+//             }
+//         }
+
+//         Console.WriteLine();

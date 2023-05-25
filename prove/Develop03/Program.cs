@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+
 
 class Program
 {
@@ -8,14 +8,14 @@ class Program
         Reference reference = new Reference("1 Nephi", 9, 6);
         Scripture scripture = new Scripture(reference, "But the Lord knoweth all things from the beginning; wherefore, he prepareth a way to accomplish all his works among the children of men; for behold, he hath all power unto the fulfilling of all his words. And thus it is. Amen.");
 
-        List<Word> wordsToHide = new List<Word>(scripture.GetWords());
+        List<Word> word_list = new List<Word>(scripture.GetWords());
         Random random = new Random();
 
         Console.WriteLine("Press Enter to hide words or type 'quit'.");
         Console.WriteLine();
         scripture.Display();
 
-        while (wordsToHide.Count > 0)
+        while (word_list.Count > 0)
         {
             string input = Console.ReadLine();
 
@@ -24,12 +24,12 @@ class Program
 
             for (int i = 0; i < 3; i++)
             {
-                if (wordsToHide.Count == 0)
+                if (word_list.Count == 0)
                     break;
                 
-                int index = random.Next(wordsToHide.Count);
-                wordsToHide[index].Hide();
-                wordsToHide.RemoveAt(index);
+                int index = random.Next(word_list.Count);
+                word_list[index].Hide();
+                word_list.RemoveAt(index);
             }
 
             Console.Clear();
@@ -54,30 +54,39 @@ class Scripture
 
     private List<Word> CreateWordList(string text)
     {
-        List<Word> wordList = new List<Word>();
+        List<Word> word_list = new List<Word>();
 
         string[] wordArray = text.Split(" ");
 
-        foreach (string word in wordArray)
-        {
-            wordList.Add(new Word(word));
+        foreach (var w in wordArray) {
+            var wordObj = new Word(w);
+            word_list.Add(wordObj);
         }
-        return wordList;
+        
+        return word_list;
     }
 
     public void Display()
     {
-        var displayedWords = _words.Select(word =>
+        Console.Write($"{_reference.Display()}: ");
+        Console.WriteLine();
+
+        foreach(Word word in _words)
         {
             if (word.GetHidden())
             {
-                return new string('_', word._GetText().Length);
+                // nested for loop?
+                
+                // string blank = word.GetText();
+                // blank = "_";
+                // Console.Write(blank);
+                Console.Write(new string('_', word.GetText().Length) + "");
             }
             else
             {
-                return word._GetText();
+                Console.Write(word.GetText() + " ");
             }
-        });
+        }
     }
 
     public Reference GetReference()
@@ -122,9 +131,13 @@ public class Reference
         {
             return $"{_book} {_chapter}:{_startVerse}";
         }
-        else
+        else if (_endVerse > _startVerse)
         {
             return $"{_book} {_chapter}:{_startVerse}-{_endVerse}";
+        }
+        else
+        {
+            return $"{_book} {_chapter}:{_startVerse}";
         }
     }
 
@@ -162,10 +175,16 @@ public class Word
         _hidden = true;
     }
 
-    public string _GetText()
+    // public void GetLength()
+    // {
+    //     foreach ()
+    // }
+
+    public string GetText()
     {
         return _text;
     }
+
     public bool GetHidden()
     {
         return _hidden;
