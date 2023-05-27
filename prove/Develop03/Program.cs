@@ -75,12 +75,7 @@ class Scripture
         {
             if (word.GetHidden())
             {
-                // nested for loop?
-                
-                // string blank = word.GetText();
-                // blank = "_";
-                // Console.Write(blank);
-                Console.Write(new string('_', word.GetText().Length) + "");
+                Console.Write(new string('_', word.GetText().Length) + " ");
             }
             else
             {
@@ -174,12 +169,6 @@ public class Word
     {
         _hidden = true;
     }
-
-    // public void GetLength()
-    // {
-    //     foreach ()
-    // }
-
     public string GetText()
     {
         return _text;
