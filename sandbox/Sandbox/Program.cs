@@ -4,49 +4,42 @@ class Program
 {
     static void Main(string[] args)
     {
-        //object or instance
-        var layne = new Person("Layne", "Moseley");
-        var dave = new Person("Dave", "Chappelle");
+        var personOne = new Person("Anakin Skywalker");
 
-        layne.Breathe();
-        layne.Talk();
-        dave.Talk();
-        dave.Walk();
+        var number = new BYUIPerson("dude", "4");
+
+        var student = new Student("Anakin Skywalker", "1", "Dark side of the force");
     }
 }
 
-// classification
-class Person 
-{
-    //attributes or properties
-    string firstName;
-    string lastName;
+class Person {
+    protected string _name;
 
-
-    //constructor, kinda like a function
-    public Person(string fn, string ln) {
-        firstName = fn;
-        lastName = ln;
+    public Person (string name) {
+        _name = name;
     }
+}
 
+class BYUIPerson: Person{
+    protected string _iNumber;
 
-    //behaviors or methods
-    public void Breathe() {
-        Console.WriteLine($"{firstName}: *Breathing*");
+    public BYUIPerson (string name, string iNumber): base(name) {
+        _iNumber = iNumber;
     }
+}
 
-    public void Walk() {
-        Console.WriteLine($"{firstName}: *Walking*");
-    }
+class Student: BYUIPerson {
+    private string _major;
 
-    public void Talk() {
-        Console.WriteLine($"Hi, My name is {FullName()}.");
+    public Student (string name, string iNumber, string major): base(name, iNumber) {
+        _major = major;
     }
-    public string FullName() {
-        return firstName + " " + lastName;
-        //string full = String.Concat(firstName, lastName);
-        //return full;
-        //return $"{firstName} {lastName}";
-    }
+}
 
+class Teacher: BYUIPerson {
+    private string _department;
+
+    public Teacher (string name, string iNumber, string department): base(name, iNumber) {
+        _department = department;
+    }
 }
