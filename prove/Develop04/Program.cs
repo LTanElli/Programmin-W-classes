@@ -23,6 +23,13 @@ public class Activity
     protected int _duration;
     protected string _description;
 
+    public Activity(string startMessage, string endMessage, string name, int duration, string description) {
+        _startMessage = startMessage;
+        _endMessage = endMessage;
+        _name = name;
+        _duration = duration;
+        _description = description;
+    }
     public Activity (int duration) {
         _duration = duration;
     }
@@ -90,22 +97,33 @@ public class Activity
     }
 }
 
-public class ListeningActivity
+public class ListingActivity : Activity
 {
     List<string> _questions = new List<string>();
     string _randomQuestion;
-    int _duration;
 
-    public ListeningActivity(int duration) {
+    public ListingActivity(int duration, string startMessage, string endMessage, string name, string description, List<string> questions) : base(startMessage, endMessage, name, duration, description) {
+        _questions = questions;
+        GetRandomQuestion();
+    }
+    public ListingActivity(int duration) : base(duration) {
         _duration = duration;
     }
 
-    public void GetRandomQuestion() {
+    public string GetRandomQuestion() {
+        Random random = new Random();
+        int randomIndex = random.Next(0, _questions.Count);
 
+        _randomQuestion = _questions[randomIndex];
+        return _randomQuestion;
     }
-
+    
     public void DisplayQuestion() {
+        Console.WriteLine(_startMessage);
+        Console.WriteLine(_description);
+        Console.WriteLine($"Question: {_randomQuestion}");
 
+        DateTime endTime = DateTime.Now.AddSeconds(Duration);
     }
 }
 
@@ -122,9 +140,8 @@ public class BreathingActivity
     }
 }
 
-public class ReflectingActivity
+public class ReflectingActivity : Activity
 {
-    int _duration;
     List<string> _prompts = new List<string>();
     string _randomPrompt;
 
