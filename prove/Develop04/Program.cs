@@ -59,13 +59,13 @@ class BreathingActivity : Activity
         while (duration > 0)
         {
             Console.WriteLine("Breathe in...");
-            ShowCountdown(3);
+            ShowCountdown(5);
             duration -= 3;
             if (duration <= 0)
                 break;
 
             Console.WriteLine("Breathe out...");
-            ShowCountdown(3);
+            ShowCountdown(5);
             duration -= 3;
         }
 
@@ -75,7 +75,7 @@ class BreathingActivity : Activity
     private void ShowStartMessage()
     {
         Console.WriteLine("=== Starting the Breathing Activity ===");
-        Console.WriteLine("Get ready to relax and focus on your breathing.");
+        Console.WriteLine("Get ready to focus on your breathing.");
         Thread.Sleep(2000);  // Pause for 2 seconds before starting
     }
 
@@ -91,9 +91,9 @@ class ReflectionActivity : Activity
     private string[] prompts = new string[]
     {
         "Think of a time when you stood up for someone else.",
-        "Think of a time when you did something really difficult.",
+        "Think of a time when you accomplished something really difficult.",
         "Think of a time when you helped someone in need.",
-        "Think of a time when you did something truly selfless."
+        "Think of a time when you did something selfless."
     };
 
     private string[] questions = new string[]
@@ -125,7 +125,7 @@ class ReflectionActivity : Activity
             foreach (string question in questions)
             {
                 Console.WriteLine(question);
-                ShowSpinner();
+                ShowSpinner(duration);
                 Thread.Sleep(2000);  // Pause for 2 seconds before showing the next question
             }
 
@@ -148,16 +148,30 @@ class ReflectionActivity : Activity
         End(duration);
     }
 
-    private void ShowSpinner()
-    {
-        string[] spinChars = new string[] { "-", "\\", "|", "/" };
+    public void ShowSpinner(int duration) {
+        List<string> animations = new List<string> {
+            "-",
+            "\\",
+            "|",
+            "/",
+        };
 
-        for (int i = 0; i < 4; i++)
-        {
-            foreach (string spinChar in spinChars)
-            {
-                Console.Write(spinChar + "\r");
-                Thread.Sleep(100);
+        var startTime = DateTime.Now;
+        var endTime = startTime.AddSeconds(duration);
+
+        int animationIndex = 0;
+        while(DateTime.Now < endTime) {
+            string frame = animations[animationIndex];
+            Console.Write(frame);
+
+            Thread.Sleep(250);
+
+            Console.Write("\b \b");
+
+            animationIndex++;
+
+            if (animationIndex >= animations.Count) {
+                animationIndex = 0;
             }
         }
     }
@@ -174,7 +188,7 @@ class ListingActivity : Activity
         "Who are some of your personal heroes?"
     };
 
-    public ListingActivity() : base("Listing Activity", "This activity will help you reflect on the good things in your life by having you list as many things as you can in a certain area.")
+    public ListingActivity() : base("Listing Activity", "This activity will help you reflect on your life by having you list as many things as you can in a certain area.")
     {
     }
 
@@ -192,7 +206,7 @@ class ListingActivity : Activity
 
             ShowCountdown(5);
 
-            Console.WriteLine("Enter your list items (press Enter after each item, leave blank to finish):");
+            Console.WriteLine("Enter your list items (press Enter after each item):");
 
             string item = Console.ReadLine();
             int itemCount = 0;
