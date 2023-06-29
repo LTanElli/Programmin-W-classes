@@ -1,0 +1,4 @@
+Simple,get swol,1000,False
+Eternal,get eternally swol,20000,False
+Simple,do stuff,100,False
+Checklist,workout,1000,False,0,15,10000

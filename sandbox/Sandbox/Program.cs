@@ -4,42 +4,56 @@ class Program
 {
     static void Main(string[] args)
     {
-        var personOne = new Person("Anakin Skywalker");
+        var hourly = new HourlyEmployee(90000, "Elon Musk", 14);
+        var salary = new SalaryEmployee(90000000, "Jeffrey Bezos", 14);
 
-        var number = new BYUIPerson("dude", "4");
+        var employees = new List<Employee> { hourly, salary };
 
-        var student = new Student("Anakin Skywalker", "1", "Dark side of the force");
-    }
+        foreach (var employee in employees) {
+            Console.WriteLine(employee._name);
+            Console.WriteLine(employee.PayPeriodWages());
+            Console.WriteLine("------------");
+            
+        }
+    }    
 }
 
-class Person {
-    protected string _name;
+public class Employee 
+{
+    public string _name;
+    protected double _payPeriodLength;
 
-    public Person (string name) {
+    public Employee(string name, int payPeriodLength) {
         _name = name;
+        _payPeriodLength = payPeriodLength;
+    }
+
+    virtual public double PayPeriodWages() {
+        return 0;
+    }
+}
+public class HourlyEmployee : Employee
+{
+    double _rate;
+
+    public HourlyEmployee( double rate, string name, int payPeriodLength) : base(name, payPeriodLength) {
+        _rate = rate;
+    }
+
+    public override double PayPeriodWages() {
+        return _rate * 8 * _payPeriodLength;
     }
 }
 
-class BYUIPerson: Person{
-    protected string _iNumber;
+public class SalaryEmployee : Employee
+{
+    double _annualRate;
 
-    public BYUIPerson (string name, string iNumber): base(name) {
-        _iNumber = iNumber;
+    public SalaryEmployee(double annualRate, string name, int payPeriodLength) : base(name, payPeriodLength) {
+        _annualRate = annualRate;
     }
-}
 
-class Student: BYUIPerson {
-    private string _major;
-
-    public Student (string name, string iNumber, string major): base(name, iNumber) {
-        _major = major;
-    }
-}
-
-class Teacher: BYUIPerson {
-    private string _department;
-
-    public Teacher (string name, string iNumber, string department): base(name, iNumber) {
-        _department = department;
+    public override double PayPeriodWages() {
+        return (_payPeriodLength / 365.0) * _annualRate;
     }
 }
