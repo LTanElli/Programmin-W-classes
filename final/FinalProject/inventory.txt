@@ -1,0 +1,2 @@
+SUV,chevy,tahoe,2004,False,8
+Sedan,chrysler,300c,2003,False,False
